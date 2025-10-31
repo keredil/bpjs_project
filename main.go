@@ -32,8 +32,9 @@ func main() {
 	// Swagger route
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.Run(":8081")
+	r.Run(":8082")
 }
+
 
 
 
