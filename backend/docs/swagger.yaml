@@ -1,0 +1,135 @@
+basePath: /
+definitions:
+  models.Program:
+    properties:
+      bentuk_manfaat:
+        type: string
+      deskripsi:
+        type: string
+      id:
+        type: integer
+      manfaat_lengkap:
+        type: string
+      nama:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API untuk menampilkan program BPJS Ketenagakerjaan
+  title: BPJS API
+  version: "1.0"
+paths:
+  /programs:
+    get:
+      description: Endpoint ini mengambil semua data program dari database bpjs_db
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Daftar program berhasil diambil
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Terjadi kesalahan pada server
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Menampilkan semua program BPJS
+      tags:
+      - Programs
+    post:
+      consumes:
+      - application/json
+      description: Endpoint ini digunakan untuk menambahkan program baru ke database
+      parameters:
+      - description: Data program baru
+        in: body
+        name: program
+        required: true
+        schema:
+          $ref: '#/definitions/models.Program'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Program berhasil ditambahkan
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Data tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Kesalahan server
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Menambahkan program BPJS baru
+      tags:
+      - Programs
+  /programs/{id}:
+    delete:
+      description: Endpoint ini digunakan untuk menghapus data program berdasarkan
+        ID
+      parameters:
+      - description: ID program
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Program berhasil dihapus
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Program tidak ditemukan
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Menghapus program BPJS
+      tags:
+      - Programs
+    put:
+      consumes:
+      - application/json
+      description: Endpoint ini memperbarui data program berdasarkan ID
+      parameters:
+      - description: ID program
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data program yang diperbarui
+        in: body
+        name: program
+        required: true
+        schema:
+          $ref: '#/definitions/models.Program'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Program berhasil diperbarui
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Data tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Program tidak ditemukan
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Memperbarui program BPJS
+      tags:
+      - Programs
+swagger: "2.0"

@@ -1,0 +1,198 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API untuk menampilkan program BPJS Ketenagakerjaan",
+        "title": "BPJS API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/programs": {
+            "get": {
+                "description": "Endpoint ini mengambil semua data program dari database bpjs_db",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Menampilkan semua program BPJS",
+                "responses": {
+                    "200": {
+                        "description": "Daftar program berhasil diambil",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Terjadi kesalahan pada server",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Endpoint ini digunakan untuk menambahkan program baru ke database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Menambahkan program BPJS baru",
+                "parameters": [
+                    {
+                        "description": "Data program baru",
+                        "name": "program",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Program"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Program berhasil ditambahkan",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Data tidak valid",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "500": {
+                        "description": "Kesalahan server",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/programs/{id}": {
+            "put": {
+                "description": "Endpoint ini memperbarui data program berdasarkan ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Memperbarui program BPJS",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID program",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Data program yang diperbarui",
+                        "name": "program",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Program"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Program berhasil diperbarui",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "400": {
+                        "description": "Data tidak valid",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Program tidak ditemukan",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Endpoint ini digunakan untuk menghapus data program berdasarkan ID",
+                "tags": [
+                    "Programs"
+                ],
+                "summary": "Menghapus program BPJS",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID program",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Program berhasil dihapus",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "404": {
+                        "description": "Program tidak ditemukan",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Program": {
+            "type": "object",
+            "properties": {
+                "bentuk_manfaat": {
+                    "type": "string"
+                },
+                "deskripsi": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "manfaat_lengkap": {
+                    "type": "string"
+                },
+                "nama": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
